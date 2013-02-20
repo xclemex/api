@@ -1,0 +1,92 @@
+-----------
+sb-Api docs
+-----------
+
+sb-Api has 5 main resources 
+
+-movies
+-music
+-books
+-games
+-electronics
+
+however @ this stage in dev
+
+only the (movie and movies) resource are supported
+
+-------------------------
+More on "movies resource"
+-------------------------
+
+get 
+    
+  http://localhost/sbApi/item/a/movies?param=value
+
+returns instances of the movie object
+----
+params : date = must be in this format (y/m/d)
+          eg where y = 1999
+                   m = 07
+                   d = 12 
+       (available date range in db="12-25 Aug 2012")
+----
+eg
+  get
+
+ http://localhost/sbApi/item/a/movies?date=2012-08-19
+
+ returns movie objects which start showing from this date 
+------------------------------------------------
+put
+
+  http://localhost/sbApi/item/movies/[:id]/rate
+
+allows a(n) authenticated/user to rate a movie of id =[:id]
+
+params: rate= accepts values between 1-5
+-----------------------------------------------------------
+put
+
+ http://localhost/sbApi/item/movies/[:id]/review
+
+allows a(n) authenticated/user to review a movie of id =[:id]
+reviews: accepts comments
+-------------------------------------------------------------
+
+other resources will be supported later 
+
+
+
+
+
+
+
+
+
+--------------
+Movie rsource
+--------------
+
+get 
+    
+  http://localhost/sbApi/item/a/movie/[:id]
+
+returns an instance of the movie object with id = [:id]
+
+eg
+
+   http://localhost/sbApi/item/a/movie/1
+
+returns an instance of the movie object with id = 1
+
+
+-------------------
+new (next attractions)
+-------------------
+
+get
+        http://localhost/sbApi/item/na/movies
+
+
+in order to make a movie eligible for next attraction selsction by the api
+alter the n_attr field in the db from 0 to 1.
