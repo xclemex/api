@@ -2,17 +2,15 @@
 sb-Api docs
 -----------
 
-sb-Api has 5 main resources 
+sb-Api has 6 main resources 
 
--movies
--music
--books
--games
--electronics
-
-however @ this stage in dev
-
-only the (movie and movies) resource are supported
+-cinema/movies
+-store/dvd
+-store/music
+-store/books
+-store/games
+-store/electronics
+-user/
 
 -------------------------
 More on "movies resource"
@@ -20,26 +18,27 @@ More on "movies resource"
 
 get 
     
-  http://localhost/sbApi/item/a/movies?param=value
-
+  http://localhost/sbApi/cinema/movie/:id
+ 
 returns instances of the movie object
 ----
-params : date = must be in this format (y/m/d)
-          eg where y = 1999
-                   m = 07
-                   d = 12 
-       (available date range in db="12-25 Aug 2012")
+id = integer value
+
+
 ----
 eg
   get
 
- http://localhost/sbApi/item/a/movies?date=2012-08-19
+ http://localhost/sbApi/cinema/movies?type=value
+
+possible values=now_showing,next_attraction,coming_soon
+
 
  returns movie objects which start showing from this date 
 ------------------------------------------------
 put
 
-  http://localhost/sbApi/item/movies/[:id]/rate
+  http://localhost/sbApi/cinema/movies/[:id]/rate
 
 allows a(n) authenticated/user to rate a movie of id =[:id]
 
@@ -47,13 +46,12 @@ params: rate= accepts values between 1-5
 -----------------------------------------------------------
 put
 
- http://localhost/sbApi/item/movies/[:id]/review
+ http://localhost/sbApi/cinema/movies/[:id]/review
 
 allows a(n) authenticated/user to review a movie of id =[:id]
 reviews: accepts comments
 -------------------------------------------------------------
 
-other resources will be supported later 
 
 
 
@@ -81,12 +79,90 @@ returns an instance of the movie object with id = 1
 
 
 -------------------
-new (next attractions)
+store/
 -------------------
 
 get
-        http://localhost/sbApi/item/na/movies
+        http://localhost/sbApi/store/dvd
 
 
-in order to make a movie eligible for next attraction selsction by the api
-alter the n_attr field in the db from 0 to 1.
+returns instances of dvds in the store
+
+
+get
+       http://localhost/sbApi/store/music
+
+
+returns instances of music in the store
+
+get
+        http://localhost/sbApi/store/books
+
+
+returns instances of books in the store
+
+get
+
+         http://localhost/sbApi/store/games
+
+
+returns instances of games in the store
+   
+get
+         http://localhost/sbApi/store/electronic
+
+
+returns electronics of dvds in the store
+
+----------------------
+User
+----------------------
+
+get
+
+     http://localhost/User/d?name=vale&password=value
+
+requires name and password values
+returns user details
+
+post
+
+  http://localhost/User
+post var = name
+post var = password
+
+creates a user acount
+
+post
+ 
+  http://localhost/User/login
+post var = name
+post var = password
+
+login a user
+
+post
+ 
+  http://localhost/User/loggout
+post var = name
+post var = password
+
+loggout a user
+
+put
+
+ http://localhost/User
+
+put var = name
+put var = password
+
+update user details
+
+
+delete
+
+ http://localhost/User
+delete var = name
+delete var = password
+
+delete user details
